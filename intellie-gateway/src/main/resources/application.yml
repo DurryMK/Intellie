@@ -1,0 +1,40 @@
+server:
+  port: 8711
+  max-http-header-size: 102400
+  servlet:
+    context-path: /
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://39.105.42.45:8710/eureka/
+logging:
+  level:
+    com.intellie.gateway: debug
+spring:
+  application:
+    name: intellie-gateway
+  cloud:
+    gateway:
+      routes:
+        - id: route_intellie_user # 路由的id,没有规定规则但要求唯一,建议配合服务名
+          #匹配后提供服务的路由地址
+          uri: http://localhost:8712
+          predicates:
+            - Path=/user/** # 匹配规则
+          filters:
+            - AddRequestParameter=GATEWAY_TOKEN, GATEWAY_TOKEN
+        - id: route_intellie_sms # 路由的id,没有规定规则但要求唯一,建议配合服务名
+          #匹配后提供服务的路由地址
+          uri: http://localhost:8716
+          predicates:
+            - Path=/sms/** # 匹配规则
+          filters:
+            - AddRequestParameter=GATEWAY_TOKEN, GATEWAY_TOKEN
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allow-credentials: true
+            allowed-origins:
+              - "http://127.0.0.1:7777"
+            allowed-headers: "*"
+            allowed-methods: "*"

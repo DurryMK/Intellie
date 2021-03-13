@@ -1,0 +1,12 @@
+server:
+  port: 8710
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    register-with-eureka: false
+    fetchRegistry: false
+    serviceUrl:
+      defaultZone: http://localhost:8710/eureka/
+  server:
+    enableSelfPreservation: false

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.intellie.user.provider.mapper.UserDao">
+    <select id="queryUserBaseInfoById" parameterType="com.intellie.common.entity.user.User"
+            resultType="com.intellie.common.entity.user.User">
+        SELECT
+        u.*
+        FROM
+        E_USER u
+        WHERE
+        1 = 1
+        and
+        u.id=#{id}
+        <if test="status!=null and status!=''">
+            AND eu.status = #{status}
+        </if>
+    </select>
+    <select id="queryUserBaseInfo" parameterType="com.intellie.common.entity.user.User"
+            resultType="com.intellie.common.entity.user.User">
+        SELECT
+        u.*
+        FROM
+        E_USER u
+        WHERE
+        1 = 1
+        <if test="status!=null and status!=''">
+            AND eu.status = #{status}
+        </if>
+        <if test="mobile!=null and mobile!=''">
+            AND u.mobile = #{mobile}
+        </if>
+        <if test="username!=null and username!=''">
+            AND u.username = #{username}
+        </if>
+        <if test="pwd!=null and pwd!=''">
+            AND u.pwd = #{pwd}
+        </if>
+        <if test="id!=null and id!=''">
+            AND u.id = #{id}
+        </if>
+    </select>
+    <select id="queryUserDetailInfo" parameterType="com.intellie.common.entity.user.User"
+            resultType="com.intellie.common.entity.user.UserDetail">
+        SELECT *
+        FROM e_user eu, e_user_detail eud
+        WHERE
+        eu.id = eud.user_id
+        <if test="mobile!=null and mobile!=''">
+            AND eu.mobile = #{mobile}
+        </if>
+    </select>
+    <update id="updateAvatar" parameterType="com.intellie.common.entity.user.User">
+        UPDATE e_user u, e_user_detail ud
+        SET ud.img = #{imgPath}
+        WHERE u.id = ud.user_id
+	    AND u.mobile = #{user.mobile}
+    </update>
+    <select id="QueryUserPaperTypeList" parameterType="java.lang.String"
+            resultType="com.intellie.user.entity.user.UserPaperType">
+        select t.id,t.name from e_paper_type t where t.user_id = #{id};
+    </select>
+    <insert id="insertUserPaperType">
+        insert into e_paper_type(user_id,`name`) values(#{id},#{newType})
+    </insert>
+</mapper>
