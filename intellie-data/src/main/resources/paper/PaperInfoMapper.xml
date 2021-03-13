@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.intellie.data.provider.dao.PaperInfoDao">
+    <select id="queryPaperInfo" parameterType="com.intellie.data.entity.paper.Paper"
+            resultType="com.intellie.data.entity.paper.Paper">
+        select * from e_paper ep
+        where
+        ep.owner = #{owner}
+        <if test="code!=null and code!=''">
+            AND ep.code = #{code}
+        </if>
+        <if test="title!=null and title!=''">
+            AND ep.title = #{title}
+        </if>
+        <if test="del!=null and del!=''">
+            AND ep.del = #{del}
+        </if>
+        <if test="status!=null and status!=''">
+            AND ep.status = #{status}
+        </if>
+        <if test="personal!=null and personal!=''">
+            AND ep.personal = #{personal}
+        </if>
+        <if test="level!=null and level!=''">
+            AND ep.level = #{level}
+        </if>
+        <if test="type!=null and type!=''">
+            AND ep.type = #{type}
+        </if>
+    </select>
+</mapper>

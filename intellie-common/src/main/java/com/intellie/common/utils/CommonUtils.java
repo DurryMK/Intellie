@@ -1,5 +1,8 @@
 package com.intellie.common.utils;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * @author durry
  * @version 1.0
@@ -7,5 +10,9 @@ package com.intellie.common.utils;
  * @describe:公共工具类
  */
 public class CommonUtils {
-
+    public static String getDateString(long str){
+        return new SimpleDateFormat("YYYY-MM-dd HH:mm:ss").format(new Date(str));
+    }
 }
+
+

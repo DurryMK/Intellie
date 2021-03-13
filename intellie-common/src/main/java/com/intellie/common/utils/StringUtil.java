@@ -23,8 +23,4 @@ public class StringUtil {
     public static boolean isNotNull(String str) {
         return !isNull(str);
     }
-
-    public static String getDateString(){
-        return new SimpleDateFormat("YYYY-MM-dd HH:mm:ss").format(new Date());
-    }
 }

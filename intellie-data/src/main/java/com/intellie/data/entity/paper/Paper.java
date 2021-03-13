@@ -7,7 +7,7 @@ import com.intellie.common.entity.system.BaseEntity;
  * @author durry
  * @version 1.0
  * @date 2020/12/15 19:43
- * 试卷属性实体类
+ * 试卷基本信息实体类
  */
 public class Paper extends BaseEntity {
 
@@ -20,21 +20,27 @@ public class Paper extends BaseEntity {
     public static final String PERSONAL = "1";
     public static final String NO_PERSONAL = "0";
 
-    private String id;
-    private String title;
-    private String remark;
-    private String type;
-    private String code;
-    private String owner;
-    private String imgUrl;
-    private String status;
-    private String personal;
-    private String level;
-    private String time;
-    private String del;
-    private String start;
-    private String end;
-    private String runningStatus;
+    private String id;//试卷序号
+    private String title;//标题
+    private String remark;//描述
+    private String type;//类型
+    private String code;//唯一编号
+    private String owner;//创建者
+    private String imgUrl;//封面图片路径
+    private String status;//发布或未发布
+    private String personal;//私密或者公开
+    private String level;//难度
+    private String time;//创建时间
+    private String del;//是否被删除
+    private String modifyTime;//修改时间
+
+    public String getModifyTime() {
+        return modifyTime;
+    }
+
+    public void setModifyTime(String modifyTime) {
+        this.modifyTime = modifyTime;
+    }
 
     public String getDel() {
         return del;
@@ -132,30 +138,6 @@ public class Paper extends BaseEntity {
         this.personal = personal;
     }
 
-    public String getStart() {
-        return start;
-    }
-
-    public void setStart(String start) {
-        this.start = start;
-    }
-
-    public String getEnd() {
-        return end;
-    }
-
-    public void setEnd(String end) {
-        this.end = end;
-    }
-
-    public String getRunningStatus() {
-        return runningStatus;
-    }
-
-    public void setRunningStatus(String runningStatus) {
-        this.runningStatus = runningStatus;
-    }
-
     @Override
     public String toString() {
         return "Paper{" +
@@ -170,6 +152,8 @@ public class Paper extends BaseEntity {
                 ", personal='" + personal + '\'' +
                 ", level='" + level + '\'' +
                 ", time='" + time + '\'' +
+                ", del='" + del + '\'' +
+                ", modifyTime='" + modifyTime + '\'' +
                 '}';
     }
 }

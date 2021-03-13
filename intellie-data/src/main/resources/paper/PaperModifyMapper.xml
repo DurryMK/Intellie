@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.intellie.data.provider.dao.PaperModifyDao">
+    <insert id="insertUserPaperType" parameterType="com.intellie.data.entity.paper.Paper">
+        INSERT INTO exam.e_paper (id,title,`type`,remark,code,owner,imgUrl,status,personal,`level`,del,`time`,modifyTime)
+        VALUES
+	    (#{id},#{title},#{type},#{remark},#{code},#{owner},#{imgUrl},#{status},#{personal},#{level},#{del},#{time},#{modifyTime})
+    </insert>
+    <update id="updatePaper" parameterType="com.intellie.data.entity.paper.Paper">
+        UPDATE exam.e_paper ep set
+        <if test="title!=null  and title!=''">
+              ep.title = #{title},
+        </if>
+        <if test="del!=null and  del!=''">
+              ep.del = #{del},
+        </if>
+        <if test="status!=null  and status!=''">
+              ep.status = #{status},
+        </if>
+        <if test="personal!=null and  personal!=''">
+              ep.personal = #{personal},
+        </if>
+        <if test="level!=null  and level!=''">
+              ep.level = #{level},
+        </if>
+        <if test="type!=null and  type!=''">
+             ep.type = #{type},
+        </if>
+        <if test="remark!=null and  remark!=''">
+            ep.remark = #{remark},
+        </if>
+        <if test="imgUrl!=null and  imgUrl!=''">
+            ep.imgUrl = #{imgUrl},
+        </if>
+        ep.modifyTime = #{modifyTime}
+        where ep.owner = #{owner}
+        and
+        ep.code = #{code}
+    </update>
+</mapper>

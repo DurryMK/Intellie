@@ -7,6 +7,7 @@ import com.intellie.common.utils.StringUtil;
 import com.intellie.data.provider.service.common.CommonService;
 import com.intellie.data.utils.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -18,6 +19,7 @@ import java.net.URLDecoder;
  * @date 2021/3/13 11:08
  * @describe:
  */
+@Component
 public class CommonServiceImpl implements CommonService {
     @Autowired
     private RedisUtil redisUtil;

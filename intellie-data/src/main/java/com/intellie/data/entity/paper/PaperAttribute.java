@@ -9,9 +9,9 @@ import java.util.UUID;
  * @author durry
  * @version 1.0
  * @date 2020/12/15 19:46
- * 试卷反作弊属性
+ * 试卷属性
  */
-public class Invigilate extends BaseEntity {
+public class PaperAttribute extends BaseEntity {
 
     private static final long serialVersionUID = 5809995458178911858L;
 
@@ -36,12 +36,12 @@ public class Invigilate extends BaseEntity {
     private String submit;//是否允许随时提交试卷
     private String personal;//是否私密
 
-    public Invigilate(String paperId) {
+    public PaperAttribute(String paperId) {
         this.id = UUID.randomUUID().toString().replaceAll("-", "");
         this.paperId = paperId;
     }
 
-    public Invigilate() {
+    public PaperAttribute() {
     }
 
 
