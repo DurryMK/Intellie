@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: zuul
+  cloud:
+    nacos:
+      config:
+        server-addr: durry.top:8848
+        file-extension: yaml
+  profiles:
+    active: local

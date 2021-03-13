@@ -29,8 +29,7 @@ public class AccessController extends AbstractController {
 
     @GetMapping("/initApp")
     public Map initApp(HttpServletRequest request, Emap em) {
-        String loginIdFromCookie = getLoginIdFromCookie(request);
-        return StringUtil.isNull(loginIdFromCookie) ? em.fail("未登录") : em.success();
+        return (getUserStatus(request) == null) ? em.fail("未登录") : em.success();
     }
 
     @PostMapping("/quickLogin")

@@ -30,6 +30,13 @@ spring:
             - Path=/sms/** # 匹配规则
           filters:
             - AddRequestParameter=GATEWAY_TOKEN, GATEWAY_TOKEN
+        - id: route_intellie_data # 路由的id,没有规定规则但要求唯一,建议配合服务名
+          #匹配后提供服务的路由地址
+          uri: http://localhost:8714
+          predicates:
+            - Path=/data/** # 匹配规则
+          filters:
+            - AddRequestParameter=GATEWAY_TOKEN, GATEWAY_TOKEN
       globalcors:
         corsConfigurations:
           '[/**]':

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/../des/client/client.iml" filepath="$PROJECT_DIR$/../des/client/client.iml" />
+      <module fileurl="file://$PROJECT_DIR$/intellie-common/intellie-common.iml" filepath="$PROJECT_DIR$/intellie-common/intellie-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/intellie-data/intellie-data.iml" filepath="$PROJECT_DIR$/intellie-data/intellie-data.iml" />
+      <module fileurl="file://$PROJECT_DIR$/intellie-demo/intellie-demo.iml" filepath="$PROJECT_DIR$/intellie-demo/intellie-demo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/intellie-eureka/intellie-eureka.iml" filepath="$PROJECT_DIR$/intellie-eureka/intellie-eureka.iml" />
+      <module fileurl="file://$PROJECT_DIR$/intellie-file/intellie-file.iml" filepath="$PROJECT_DIR$/intellie-file/intellie-file.iml" />
+      <module fileurl="file://$PROJECT_DIR$/intellie-gateway/intellie-gateway.iml" filepath="$PROJECT_DIR$/intellie-gateway/intellie-gateway.iml" />
+      <module fileurl="file://$PROJECT_DIR$/intellie-remote-api/intellie-remote-api.iml" filepath="$PROJECT_DIR$/intellie-remote-api/intellie-remote-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/intellie-sms/intellie-sms.iml" filepath="$PROJECT_DIR$/intellie-sms/intellie-sms.iml" />
+      <module fileurl="file://$PROJECT_DIR$/intellie-system/intellie-system.iml" filepath="$PROJECT_DIR$/intellie-system/intellie-system.iml" />
+      <module fileurl="file://$PROJECT_DIR$/intellie-user/intellie-user.iml" filepath="$PROJECT_DIR$/intellie-user/intellie-user.iml" />
+      <module fileurl="file://$PROJECT_DIR$/intellie-zuul/intellie-zuul.iml" filepath="$PROJECT_DIR$/intellie-zuul/intellie-zuul.iml" />
+    </modules>
+  </component>
+</project>

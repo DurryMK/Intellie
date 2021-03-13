@@ -3,7 +3,6 @@ package com.intellie.user.utils;
 import org.apache.tomcat.util.codec.binary.Base64;
 
 import java.security.Key;
-import java.security.SecureRandom;
 import java.util.Random;
 import javax.crypto.Cipher;
 import javax.crypto.SecretKey;

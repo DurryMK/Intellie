@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="intellie-system" />
+        <module name="intellie-gateway" />
+        <module name="client" />
+        <module name="intellie-common" />
+        <module name="intellie-file" />
+        <module name="intellie-eureka" />
+        <module name="intellie-remote-api" />
+        <module name="intellie-demo" />
+        <module name="intellie-zuul" />
+        <module name="intellie-data" />
+        <module name="intellie-user" />
+        <module name="intellie-sms" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="client" target="1.8" />
+      <module name="intellie-common" target="1.8" />
+      <module name="intellie-data" target="1.8" />
+      <module name="intellie-demo" target="1.8" />
+      <module name="intellie-eureka" target="1.8" />
+      <module name="intellie-file" target="1.8" />
+      <module name="intellie-gateway" target="1.8" />
+      <module name="intellie-remote-api" target="1.8" />
+      <module name="intellie-sms" target="1.8" />
+      <module name="intellie-system" target="1.8" />
+      <module name="intellie-user" target="1.8" />
+      <module name="intellie-zuul" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="client" options="-parameters" />
+      <module name="intellie-data" options="-parameters" />
+      <module name="intellie-demo" options="-parameters" />
+      <module name="intellie-eureka" options="-parameters" />
+      <module name="intellie-file" options="-parameters" />
+      <module name="intellie-gateway" options="-parameters" />
+      <module name="intellie-remote-api" options="-parameters" />
+      <module name="intellie-sms" options="-parameters" />
+      <module name="intellie-system" options="-parameters" />
+      <module name="intellie-user" options="-parameters" />
+      <module name="intellie-zuul" options="-parameters" />
+    </option>
+  </component>
+</project>
