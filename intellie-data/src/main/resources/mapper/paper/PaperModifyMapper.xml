@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.intellie.data.provider.dao.PaperModifyDao">
+    <insert id="insertPaper" parameterType="com.intellie.data.entity.paper.Paper">
+        INSERT INTO exam.e_paper (id,title,`type`,remark,code,owner,imgUrl,`level`,del,`time`,modifyTime)
+        VALUES
+	    (#{id},#{title},#{type},#{remark},#{code},#{owner},#{imgUrl},#{level},#{del},#{time},#{modifyTime})
+    </insert>
+    <update id="updatePaper" parameterType="com.intellie.data.entity.paper.Paper">
+        UPDATE exam.e_paper ep set
+        <if test="title!=null  and title!=''">
+              ep.title = #{title},
+        </if>
+        <if test="del!=null and  del!=''">
+              ep.del = #{del},
+        </if>
+        <if test="level!=null  and level!=''">
+              ep.level = #{level},
+        </if>
+        <if test="type!=null and  type!=''">
+             ep.type = #{type},
+        </if>
+        <if test="remark!=null and  remark!=''">
+            ep.remark = #{remark},
+        </if>
+        <if test="imgUrl!=null and  imgUrl!=''">
+            ep.imgUrl = #{imgUrl},
+        </if>
+        ep.modifyTime = #{modifyTime}
+        where ep.owner = #{owner}
+        and
+        ep.code = #{code}
+    </update>
+    <insert id="insertPaperAttribute" parameterType="com.intellie.data.entity.paper.PaperAttribute">
+        INSERT INTO exam.e_paper_attribute (id,paper_id,`join`,page,
+        iscopy,ispaste,isrname,`leave`,isCamera,isDoRname,duration,delivery,`start`,
+        `end`,isOpenForever,passMark,noMark,isShowResult,submit,personal,status,modifyTime) VALUES
+        (#{id},#{paperId},#{join},#{page},#{isCopy},
+        #{isPaste},#{isRname},#{leave},#{isCamera},#{isDoRname},
+        #{duration},#{delivery},#{start},#{end},#{isOpenForever},#{passMark},
+        #{noMark},#{isShowResult},#{submit},#{personal},#{status},
+        #{modifyTime})
+    </insert>
+    <update id="updatePaperAttribute" parameterType="com.intellie.data.entity.paper.PaperAttribute">
+        UPDATE exam.e_paper_attribute ep set
+        <if test="join!=null  and join!=''">
+            ep.join = #{join},
+        </if>
+        <if test="page!=null and  page!=''">
+            ep.page = #{page},
+        </if>
+        <if test="isCopy!=null  and isCopy!=''">
+            ep.iscopy = #{isCopy},
+        </if>
+        <if test="isPaste!=null and  isPaste!=''">
+            ep.ispaste = #{isPaste},
+        </if>
+        <if test="isRname!=null and  isRname!=''">
+            ep.isrname = #{isRname},
+        </if>
+        <if test="leave!=null and  leave!=''">
+            ep.leave = #{leave},
+        </if>
+        <if test="isCamera!=null and  isCamera!=''">
+            ep.isCamera = #{isCamera},
+        </if>
+        <if test="isDoRname!=null and  isDoRname!=''">
+            ep.isDoRname = #{isDoRname},
+        </if>
+        <if test="duration!=null and  duration!=''">
+            ep.duration = #{duration},
+        </if>
+        <if test="delivery!=null and  delivery!=''">
+            ep.delivery = #{delivery},
+        </if>
+        <if test="start!=null and  start!=''">
+            ep.start = #{start},
+        </if>
+        <if test="end!=null and  end!=''">
+            ep.end = #{end},
+        </if>
+        <if test="isOpenForever!=null and  isOpenForever!=''">
+            ep.isOpenForever = #{isOpenForever},
+        </if>
+        <if test="passMark!=null and  passMark!=''">
+            ep.passMark = #{passMark},
+        </if>
+        <if test="noMark!=null and  noMark!=''">
+            ep.noMark = #{noMark},
+        </if>
+        <if test="isShowResult!=null and  isShowResult!=''">
+            ep.isShowResult = #{isShowResult},
+        </if>
+        <if test="submit!=null and  submit!=''">
+            ep.submit = #{submit},
+        </if>
+        <if test="status!=null and  status!=''">
+            ep.status = #{status},
+        </if>
+        ep.modifyTime = #{modifyTime}
+        where ep.paper_id = #{paperId}
+    </update>
+</mapper>

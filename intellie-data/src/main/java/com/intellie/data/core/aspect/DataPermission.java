@@ -30,7 +30,7 @@ public class DataPermission {
     private int isGateway;//是否开启网关的身份识别
 
     @Autowired
-    private CommonService service;
+    private CommonService commonService;
 
     @Pointcut("execution(* com.intellie.data.export..*.*(..))")
     private void PermissionAccess() {
@@ -52,7 +52,7 @@ public class DataPermission {
                     return em.invalid();
             }
             //只放行已登录的请求
-            User loginStatus = service.getLoginStatus(request);
+            User loginStatus = commonService.getLoginStatus(request);
             if(loginStatus == null)
                 return em.invalid();
             return joinPoint.proceed();

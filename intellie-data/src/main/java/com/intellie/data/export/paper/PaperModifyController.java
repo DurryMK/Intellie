@@ -5,6 +5,7 @@ import com.intellie.common.entity.user.User;
 import com.intellie.common.entity.user.UserDetail;
 import com.intellie.common.utils.StringUtil;
 import com.intellie.data.entity.paper.Paper;
+import com.intellie.data.entity.paper.PaperAttribute;
 import com.intellie.data.export.base.BaseController;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,7 +22,7 @@ import java.util.Map;
  * @describe:修改试卷信息控制器
  */
 @RestController
-@RequestMapping("modify")
+@RequestMapping("paper/modify")
 public class PaperModifyController extends BaseController {
 
 
@@ -50,60 +51,79 @@ public class PaperModifyController extends BaseController {
         try {
             User loginStatus = commonService.getLoginStatus(request);
             Paper paper = new Paper();
+            paper.setCode(code);
+            boolean existPaper = paperInfoService.isExistPaper(paper);
             paper.setTitle(title);
             paper.setOwner(loginStatus.getId());
-
-            if (paperInfoService.isExistPaper(paper))
-                return em.fail("试卷已存在");
-
             paper.setType(type);
             paper.setLevel(level);
             paper.setRemark(remark);
-            paper.setCode(code);
-
-            paperModifyService.createNewPaper(paper);
-            return em.fail("成功保存试卷");
+            if (!existPaper) {
+                //创建新的
+                paperModifyService.createNewPaper(paper);
+            } else {
+                //修改原有的
+                paperModifyService.modifyPaper(paper);
+            }
+            return em.success("成功保存试卷");
         } catch (Exception e) {
             e.printStackTrace();
         }
         return em.fail("试卷创建失败");
     }
 
-    /**
-     * 创建一张新的试卷
-     */
-    @PostMapping("modifyPaper")
-    public Map modifyPaper(HttpServletRequest request, Emap em) {
+//    /**
+//     * 修改试卷的内容
+//     */
+//    @PostMapping("modifyPaper")
+//    public Map modifyPaper(HttpServletRequest request, Emap em) {
+//
+//        String title = request.getParameter("title");
+//        String type = request.getParameter("type");
+//        String level = request.getParameter("level");
+//        String remark = request.getParameter("remark");
+//        String code = request.getParameter("code");
+//
+//        if (StringUtil.isNull(title) || StringUtil.isNull(type) || StringUtil.isNull(level) || StringUtil.isNull(code)) {
+//            return em.fail("试卷属性不完整");
+//        }
+//
+//        try {
+//            User loginStatus = commonService.getLoginStatus(request);
+//            Paper paper = new Paper();
+//            paper.setCode(code);
+//            paper.setOwner(loginStatus.getId());
+//
+//            if (!paperInfoService.isExistPaper(paper))
+//                return em.fail("试卷不存在");
+//
+//            paper.setTitle(title);
+//            paper.setType(type);
+//            paper.setLevel(level);
+//            paper.setRemark(remark);
+//
+//            paperModifyService.modifyPaper(paper);
+//            return em.success("成功保存试卷");
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        return em.fail("试卷属性修改失败");
+//    }
 
-        String title = request.getParameter("title");
-        String type = request.getParameter("type");
-        String level = request.getParameter("level");
-        String remark = request.getParameter("remark");
-        String code = request.getParameter("code");
-
-        if (StringUtil.isNull(title) || StringUtil.isNull(type) || StringUtil.isNull(level) || StringUtil.isNull(code)) {
-            return em.fail("试卷属性不完整");
-        }
-
+    @PostMapping("modifyPaperAttribute")
+    public Map modifyPaperAttribute(HttpServletRequest request, Emap em, PaperAttribute attribute) {
         try {
-            User loginStatus = commonService.getLoginStatus(request);
+            String code = request.getParameter("code");
             Paper paper = new Paper();
-            paper.setTitle(title);
-            paper.setOwner(loginStatus.getId());
-
-            if (!paperInfoService.isExistPaper(paper))
-                return em.fail("试卷不存在");
-
-            paper.setType(type);
-            paper.setLevel(level);
-            paper.setRemark(remark);
             paper.setCode(code);
-
-            paperModifyService.modifyPaper(paper);
-            return em.fail("成功保存试卷");
+            paper = paperInfoService.getPaperBaseInfo(paper);
+            if (paper == null)
+                return em.fail("试卷不存在");
+            paperModifyService.modifyPaperAttribute(paper, attribute);
+            return em.success("设置成功");
         } catch (Exception e) {
             e.printStackTrace();
+            return em.fail("设置失败");
         }
-        return em.fail("试卷属性修改失败");
     }
 }

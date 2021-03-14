@@ -8,6 +8,7 @@ import com.intellie.data.entity.paper.PaperAttribute;
 import com.intellie.data.provider.dao.PaperModifyDao;
 import com.intellie.data.provider.service.paper.PaperModifyService;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 
@@ -17,7 +18,7 @@ import javax.annotation.Resource;
  * @date 2021/3/13 12:02
  * @describe:
  */
-@Component
+@Service
 public class PaperModifyServiceImpl implements PaperModifyService {
     @Resource
     private PaperModifyDao dao;
@@ -27,18 +28,28 @@ public class PaperModifyServiceImpl implements PaperModifyService {
 
     @Override
     public void createNewPaper(Paper paper) {
-        paper.setId(PBEUtil.genSecretKey(8));
+        //创建一张新的试卷
+        paper.setId(PBEUtil.genSecretKey(12));
         if (StringUtil.isNull(paper.getImgUrl()))
             paper.setImgUrl(IMG_URL);
         String time = CommonUtils.getDateString(System.currentTimeMillis());
         paper.setTime(time);
         paper.setModifyTime(time);
+        paper.setDel(Paper.NO_DEL);
         dao.insertPaper(paper);
+        //创建对应的试卷属性
+        PaperAttribute paperAttribute = new PaperAttribute();
+        paperAttribute.setId(PBEUtil.genSecretKey(12));
+        paperAttribute.setPaperId(paper.getId());
+        dao.insertPaperAttribute(paperAttribute);
     }
 
     @Override
     public void modifyPaperAttribute(Paper paper, PaperAttribute attribute) {
-
+        attribute.setPaperId(paper.getId());
+        attribute.setId(PBEUtil.genSecretKey(12));
+        attribute.setModifyTime(CommonUtils.getDateString(System.currentTimeMillis()));
+        dao.updatePaperAttribute(attribute);
     }
 
     @Override

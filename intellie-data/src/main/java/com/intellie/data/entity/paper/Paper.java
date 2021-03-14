@@ -12,13 +12,8 @@ import com.intellie.common.entity.system.BaseEntity;
 public class Paper extends BaseEntity {
 
     private static final long serialVersionUID = -102700627461469183L;
-
-    public static final String EXPORT = "1";
-    public static final String NO_EXPORT = "0";
     public static final String DEL = "1";
     public static final String NO_DEL = "0";
-    public static final String PERSONAL = "1";
-    public static final String NO_PERSONAL = "0";
 
     private String id;//试卷序号
     private String title;//标题
@@ -27,8 +22,6 @@ public class Paper extends BaseEntity {
     private String code;//唯一编号
     private String owner;//创建者
     private String imgUrl;//封面图片路径
-    private String status;//发布或未发布
-    private String personal;//私密或者公开
     private String level;//难度
     private String time;//创建时间
     private String del;//是否被删除
@@ -122,22 +115,6 @@ public class Paper extends BaseEntity {
         this.imgUrl = imgUrl;
     }
 
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public String getPersonal() {
-        return personal;
-    }
-
-    public void setPersonal(String personal) {
-        this.personal = personal;
-    }
-
     @Override
     public String toString() {
         return "Paper{" +
@@ -148,8 +125,6 @@ public class Paper extends BaseEntity {
                 ", code='" + code + '\'' +
                 ", owner='" + owner + '\'' +
                 ", imgUrl='" + imgUrl + '\'' +
-                ", status='" + status + '\'' +
-                ", personal='" + personal + '\'' +
                 ", level='" + level + '\'' +
                 ", time='" + time + '\'' +
                 ", del='" + del + '\'' +

@@ -15,4 +15,9 @@ public interface PaperInfoService {
      *判断指定试卷是否存在
      * */
     boolean isExistPaper(Paper paper);
+
+    /**
+     *获取指定试卷的基本信息
+     * */
+    Paper getPaperBaseInfo(Paper paper);
 }

@@ -6,7 +6,10 @@
             resultType="com.intellie.data.entity.paper.Paper">
         select * from e_paper ep
         where
-        ep.owner = #{owner}
+        1=1
+        <if test="owner!=null and owner!=''">
+            AND ep.owner = #{owner}
+        </if>
         <if test="code!=null and code!=''">
             AND ep.code = #{code}
         </if>
@@ -15,12 +18,6 @@
         </if>
         <if test="del!=null and del!=''">
             AND ep.del = #{del}
-        </if>
-        <if test="status!=null and status!=''">
-            AND ep.status = #{status}
-        </if>
-        <if test="personal!=null and personal!=''">
-            AND ep.personal = #{personal}
         </if>
         <if test="level!=null and level!=''">
             AND ep.level = #{level}

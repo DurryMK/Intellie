@@ -14,9 +14,16 @@ import java.util.UUID;
 public class PaperAttribute extends BaseEntity {
 
     private static final long serialVersionUID = 5809995458178911858L;
+    public static final String EXPORT = "1";
+    public static final String NO_EXPORT = "0";
 
-    private String id;
-    private String paperId;//
+    public static final String PERSONAL = "1";
+    public static final String NO_PERSONAL = "0";
+
+    private String id;//序列号
+    private String paperId;//试卷id
+    private String personal;//私密或者公开
+    private String status;//发布或未发布
     private String join;//允许参加考试的次数
     private String isOpenForever;
     private String page;//允许切换页面的次数
@@ -34,16 +41,42 @@ public class PaperAttribute extends BaseEntity {
     private String noMark;//不及格的评语
     private String isShowResult;//是否在考试结束后立即显示成绩
     private String submit;//是否允许随时提交试卷
-    private String personal;//是否私密
+    private String modifyTime;
 
-    public PaperAttribute(String paperId) {
-        this.id = UUID.randomUUID().toString().replaceAll("-", "");
-        this.paperId = paperId;
+    public String getModifyTime() {
+        return modifyTime;
+    }
+
+    public void setModifyTime(String modifyTime) {
+        this.modifyTime = modifyTime;
     }
 
     public PaperAttribute() {
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getPersonal() {
+        return personal;
+    }
+
+    public void setPersonal(String personal) {
+        this.personal = personal;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     public String getDelivery() {
         return delivery;
@@ -191,8 +224,11 @@ public class PaperAttribute extends BaseEntity {
 
     @Override
     public String toString() {
-        return "Invigilate{" +
-                "paperId='" + paperId + '\'' +
+        return "PaperAttribute{" +
+                "id='" + id + '\'' +
+                ", paperId='" + paperId + '\'' +
+                ", personal='" + personal + '\'' +
+                ", status='" + status + '\'' +
                 ", join='" + join + '\'' +
                 ", isOpenForever='" + isOpenForever + '\'' +
                 ", page='" + page + '\'' +

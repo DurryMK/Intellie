@@ -8,7 +8,6 @@ import org.springframework.session.data.redis.config.annotation.web.http.EnableR
 
 @SpringBootApplication
 @EnableDiscoveryClient
-//@EnableRedisHttpSession
 @RefreshScope
 public class UserServiceApplication {
     public static void main(String[] args) {

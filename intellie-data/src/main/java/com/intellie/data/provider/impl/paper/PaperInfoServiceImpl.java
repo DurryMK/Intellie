@@ -5,6 +5,7 @@ import com.intellie.data.provider.dao.PaperInfoDao;
 import com.intellie.data.provider.service.paper.PaperInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 
@@ -14,14 +15,18 @@ import javax.annotation.Resource;
  * @date 2021/3/13 11:49
  * @describe:
  */
-@Component
+@Service
 public class PaperInfoServiceImpl implements PaperInfoService {
     @Resource
     private PaperInfoDao dao;
 
     @Override
     public boolean isExistPaper(Paper paper) {
-        Paper paper1 = dao.queryPaperInfo(paper);
-        return (paper1 == null) ? false : true;
+        return (getPaperBaseInfo(paper) == null) ? false : true;
+    }
+
+    @Override
+    public Paper getPaperBaseInfo(Paper paper) {
+        return dao.queryPaperInfo(paper);
     }
 }

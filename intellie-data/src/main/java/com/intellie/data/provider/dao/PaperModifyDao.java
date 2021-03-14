@@ -1,6 +1,7 @@
 package com.intellie.data.provider.dao;
 
 import com.intellie.data.entity.paper.Paper;
+import com.intellie.data.entity.paper.PaperAttribute;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
@@ -14,4 +15,8 @@ public interface PaperModifyDao {
     void insertPaper(Paper paper);
 
     void updatePaper(Paper paper);
+
+    void insertPaperAttribute(PaperAttribute paperAttribute);
+
+    void updatePaperAttribute(PaperAttribute paperAttribute);
 }
