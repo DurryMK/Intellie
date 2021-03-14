@@ -1,7 +1,10 @@
 package com.intellie.data.provider.dao;
 
 import com.intellie.data.entity.paper.Paper;
+import com.intellie.data.entity.paper.PaperComplete;
 import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
 
 /**
  * @author durry
@@ -12,4 +15,6 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface PaperInfoDao {
     Paper queryPaperInfo(Paper paper);
+
+    List<PaperComplete> queryPaperCompleteList(Paper paper);
 }

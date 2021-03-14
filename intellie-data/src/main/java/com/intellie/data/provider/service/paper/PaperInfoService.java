@@ -1,7 +1,10 @@
 package com.intellie.data.provider.service.paper;
 
 import com.intellie.data.entity.paper.Paper;
+import com.intellie.data.entity.paper.PaperComplete;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @author durry
@@ -20,4 +23,6 @@ public interface PaperInfoService {
      *获取指定试卷的基本信息
      * */
     Paper getPaperBaseInfo(Paper paper);
+
+    List<PaperComplete> getPaperList(Paper paper);
 }

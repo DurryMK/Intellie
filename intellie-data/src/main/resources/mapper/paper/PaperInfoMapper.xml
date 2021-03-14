@@ -26,4 +26,28 @@
             AND ep.type = #{type}
         </if>
     </select>
+    <select id="queryPaperCompleteList" parameterType="com.intellie.data.entity.paper.Paper"
+            resultType="com.intellie.data.entity.paper.PaperComplete">
+        select * from e_paper ep
+        where
+        1=1
+        <if test="owner!=null and owner!=''">
+            AND ep.owner = #{owner}
+        </if>
+        <if test="code!=null and code!=''">
+            AND ep.code = #{code}
+        </if>
+        <if test="title!=null and title!=''">
+            AND ep.title = #{title}
+        </if>
+        <if test="del!=null and del!=''">
+            AND ep.del = #{del}
+        </if>
+        <if test="level!=null and level!=''">
+            AND ep.level = #{level}
+        </if>
+        <if test="type!=null and type!=''">
+            AND ep.type = #{type}
+        </if>
+    </select>
 </mapper>
