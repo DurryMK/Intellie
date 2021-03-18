@@ -16,6 +16,8 @@ import javax.servlet.http.HttpServletRequest;
 @Service
 public interface CommonService {
     String getLoginIdFromCookie(HttpServletRequest request);
+
     String decodeLoginToken(HttpServletRequest request);
+
     User getLoginStatus(HttpServletRequest request);
 }

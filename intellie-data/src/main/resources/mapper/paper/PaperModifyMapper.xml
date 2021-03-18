@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.intellie.data.provider.dao.PaperModifyDao">
+<mapper namespace="com.intellie.data.provider.dao.paper.PaperModifyDao">
     <insert id="insertPaper" parameterType="com.intellie.data.entity.paper.Paper">
-        INSERT INTO exam.e_paper (id,title,`type`,remark,code,owner,imgUrl,`level`,del,`time`,modifyTime)
+        INSERT INTO exam.e_paper (id,title,typeId,remark,code,owner,imgUrl,`level`,del,`time`,modifyTime)
         VALUES
-	    (#{id},#{title},#{type},#{remark},#{code},#{owner},#{imgUrl},#{level},#{del},#{time},#{modifyTime})
+	    (#{id},#{title},#{typeId},#{remark},#{code},#{owner},#{imgUrl},#{level},#{del},#{time},#{modifyTime})
     </insert>
     <update id="updatePaper" parameterType="com.intellie.data.entity.paper.Paper">
         UPDATE exam.e_paper ep set
@@ -18,8 +18,8 @@
         <if test="level!=null  and level!=''">
               ep.level = #{level},
         </if>
-        <if test="type!=null and  type!=''">
-             ep.type = #{type},
+        <if test="typeId!=null and  typeId!=''">
+             ep.typeId = #{typeId},
         </if>
         <if test="remark!=null and  remark!=''">
             ep.remark = #{remark},

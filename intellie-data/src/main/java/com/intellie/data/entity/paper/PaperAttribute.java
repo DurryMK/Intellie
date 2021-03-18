@@ -22,25 +22,25 @@ public class PaperAttribute extends BaseEntity {
 
     private String id;//序列号
     private String paperId;//试卷id
-    private String personal;//私密或者公开
-    private String status;//发布或未发布
-    private String join;//允许参加考试的次数
-    private String isOpenForever;
-    private String page;//允许切换页面的次数
-    private String isCopy;//是否允许复制
-    private String isPaste;//是否允许粘贴
-    private String isRname;//是否仅允许实名考生参加
-    private String leave;//允许离开摄像头界面的次数
-    private String isCamera;//是否开启摄像头监考
-    private String isDoRname;//是否考前进行人脸识别
-    private String duration;//单次考试时长
-    private String delivery;//是否限时开放
+    private String personal = PERSONAL;//私密或者公开
+    private String status = NO_EXPORT;//发布或未发布
+    private String join = "0";//允许参加考试的次数
+    private String isOpenForever = "false";
+    private String page = "0";//允许切换页面的次数
+    private String isCopy = "false";//是否允许复制
+    private String isPaste = "false";//是否允许粘贴
+    private String isRname = "false";;//是否仅允许实名考生参加
+    private String leave = "0";//允许离开摄像头界面的次数
+    private String isCamera = "false";//是否开启摄像头监考
+    private String isDoRname = "false";//是否考前进行人脸识别
+    private String duration = "30";//单次考试时长
+    private String delivery = "false";//是否限时开放
     private String start;//开始时间
     private String end;//结束时间
-    private String passMark;//及格的评语
-    private String noMark;//不及格的评语
-    private String isShowResult;//是否在考试结束后立即显示成绩
-    private String submit;//是否允许随时提交试卷
+    private String passMark = "恭喜过关，再接再厉";//及格的评语
+    private String noMark = "别灰心，下次加油";//不及格的评语
+    private String isShowResult = "false";//是否在考试结束后立即显示成绩
+    private String submit = "false";//是否允许随时提交试卷
     private String modifyTime;
 
     public String getModifyTime() {

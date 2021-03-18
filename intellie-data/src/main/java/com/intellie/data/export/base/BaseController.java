@@ -1,8 +1,11 @@
 package com.intellie.data.export.base;
 
+import com.github.pagehelper.PageHelper;
 import com.intellie.data.provider.service.common.CommonService;
 import com.intellie.data.provider.service.paper.PaperInfoService;
 import com.intellie.data.provider.service.paper.PaperModifyService;
+import com.intellie.data.provider.service.question.QuestionInfoService;
+import com.intellie.data.provider.service.question.QuestionModifyService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -20,4 +23,10 @@ public abstract class BaseController {
 
     @Autowired
     protected CommonService commonService;
+
+    @Autowired
+    protected QuestionInfoService questionInfoService;
+
+    @Autowired
+    protected QuestionModifyService questionModifyService;
 }

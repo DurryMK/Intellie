@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.intellie.data.provider.dao.question.QuestionInfoDao">
+    <select id="queryQuestionList" parameterType="com.intellie.data.entity.question.QuestionQueryCondition"
+            resultType="com.intellie.data.entity.question.Question">
+        select a.*,eqt.name `type`
+        from
+        (select
+        eq.id ,
+        eq.title ,
+        eq.`type` as typeId ,
+        eq.`time` ,
+        eq.`from` ,
+        eq.origin ,
+        CASE eq.`level`
+        WHEN 1 THEN
+        '简单'
+        WHEN 2 THEN
+        '一般'
+        WHEN 3 THEN
+        '中等'
+        WHEN 4 THEN
+        '较难'
+        WHEN 5 THEN
+        '极难'
+        END `level`
+         ,
+        eq.createtype ,
+        eq.owner ,
+        eq.site ,
+        eq.del ,
+        eqa.content ,
+        eqa.correct ,
+        eqa.`options`
+        from e_question eq left join e_question_attribute eqa
+        on eq.owner =  #{owner} and eq.contentid = eqa.id
+        ) a , e_question_type eqt
+        where eqt.id = a.typeId
+        <if test="del!=null and del!=''">
+            AND a.del = #{del}
+        </if>
+        <if test="key!=null and key!=''">
+            and (
+            a.code LIKE concat('%',#{key},'%')
+            or
+            a.title LIKE concat('%',#{key},'%')
+            or
+            a.type LIKE concat('%',#{key},'%')
+            )
+        </if>
+    </select>
+    <select id="queryUserQuestionList" parameterType="com.intellie.data.entity.question.QuestionQueryCondition"
+            resultType="com.intellie.data.entity.question.Question">
+        SELECT a.*,eqt.name `type` FROM (
+        SELECT
+        eq.id, eq.title, eq.`type` AS typeId, eq.`time`, eq.`from`, eq.origin,
+        CASE eq.`level` WHEN 1 THEN '简单' WHEN 2 THEN '一般' WHEN 3 THEN '中等' WHEN 4 THEN '较难' WHEN 5 THEN '极难' END `level`,
+        eq.createtype, eq.owner, eq.site, eq.del, eqa.content, eqa.correct, eqa.`options`
+        FROM e_question eq LEFT JOIN e_question_attribute eqa ON eq.contentid = eqa.id) a,
+        e_question_type eqt
+        WHERE
+        eqt.id = a.typeId
+        AND
+        a.id IN
+        (
+        SELECT euq.question_id FROM e_user_questions euq WHERE euq.user_id = #{owner}
+        <if test="del!=null and del!=''">
+            and euq.del=#{del}
+        </if>
+        <if test="questionId!=null and questionId!=''">
+            and euq.question_id=#{questionId}
+        </if>
+        )
+        <if test="key!=null and key!=''">
+            and (
+            a.content LIKE concat('%',#{key},'%')
+            or
+            a.title LIKE concat('%',#{key},'%')
+            or
+            a.type LIKE concat('%',#{key},'%')
+            )
+        </if>
+    </select>
+    <select id="queryUserQuestionIdList" parameterType="com.intellie.data.entity.question.QuestionQueryCondition"
+            resultType="java.lang.String">
+        select euq.question_id
+        from
+        exam.e_user_questions euq
+        where
+        euq.user_id = #{owner}
+    </select>
+</mapper>

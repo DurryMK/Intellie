@@ -5,9 +5,8 @@ import com.intellie.common.utils.PBEUtil;
 import com.intellie.common.utils.StringUtil;
 import com.intellie.data.entity.paper.Paper;
 import com.intellie.data.entity.paper.PaperAttribute;
-import com.intellie.data.provider.dao.PaperModifyDao;
+import com.intellie.data.provider.dao.paper.PaperModifyDao;
 import com.intellie.data.provider.service.paper.PaperModifyService;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -39,7 +38,9 @@ public class PaperModifyServiceImpl implements PaperModifyService {
         dao.insertPaper(paper);
         //创建对应的试卷属性
         PaperAttribute paperAttribute = new PaperAttribute();
+        //随机序列号
         paperAttribute.setId(PBEUtil.genSecretKey(12));
+        //对应的试卷Id
         paperAttribute.setPaperId(paper.getId());
         dao.insertPaperAttribute(paperAttribute);
     }

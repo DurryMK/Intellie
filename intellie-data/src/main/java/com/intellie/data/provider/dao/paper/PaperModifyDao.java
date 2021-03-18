@@ -1,4 +1,4 @@
-package com.intellie.data.provider.dao;
+package com.intellie.data.provider.dao.paper;
 
 import com.intellie.data.entity.paper.Paper;
 import com.intellie.data.entity.paper.PaperAttribute;

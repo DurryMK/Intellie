@@ -1,14 +1,15 @@
 package com.intellie.data.provider.impl.paper;
 
+import com.intellie.common.utils.StringUtil;
 import com.intellie.data.entity.paper.Paper;
 import com.intellie.data.entity.paper.PaperComplete;
-import com.intellie.data.provider.dao.PaperInfoDao;
+import com.intellie.data.entity.paper.PaperQueryCondition;
+import com.intellie.data.provider.dao.paper.PaperInfoDao;
 import com.intellie.data.provider.service.paper.PaperInfoService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.text.ParseException;
 import java.util.List;
 
 /**
@@ -33,7 +34,23 @@ public class PaperInfoServiceImpl implements PaperInfoService {
     }
 
     @Override
-    public List<PaperComplete> getPaperList(Paper paper) {
-        return dao.queryPaperCompleteList(paper);
+    public List<PaperComplete> getPaperList(PaperQueryCondition condition) throws ParseException {
+        List<PaperComplete> paperCompletes = dao.queryPaperCompleteList(condition);
+        return paperListHandler(paperCompletes);
+    }
+
+    private List<PaperComplete> paperListHandler(List<PaperComplete> list) throws ParseException {
+        for (PaperComplete complete : list) {
+            String isOpenForever = complete.getIsOpenForever();
+            //不是永久开放则判断进行状态
+            if (StringUtil.isNull(isOpenForever) || "false".equals(isOpenForever)) {
+                complete.setIsRunning(StringUtil.limitTime(complete.getStart(), complete.getEnd()) + "");
+            }
+            //考试时长
+            if (StringUtil.isNotNull(complete.getDelivery()) && "true".equals(complete.getDelivery())) {
+                String duration = complete.getDuration();
+            }
+        }
+        return list;
     }
 }

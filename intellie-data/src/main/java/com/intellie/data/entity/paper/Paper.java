@@ -18,7 +18,7 @@ public class Paper extends BaseEntity {
     private String id;//试卷序号
     private String title;//标题
     private String remark;//描述
-    private String type;//类型
+    private String typeId;//类型
     private String code;//唯一编号
     private String owner;//创建者
     private String imgUrl;//封面图片路径
@@ -83,14 +83,6 @@ public class Paper extends BaseEntity {
         this.remark = remark;
     }
 
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
     public String getCode() {
         return code;
     }
@@ -101,6 +93,14 @@ public class Paper extends BaseEntity {
 
     public String getOwner() {
         return owner;
+    }
+
+    public String getTypeId() {
+        return typeId;
+    }
+
+    public void setTypeId(String typeId) {
+        this.typeId = typeId;
     }
 
     public void setOwner(String owner) {
@@ -121,7 +121,7 @@ public class Paper extends BaseEntity {
                 "id='" + id + '\'' +
                 ", title='" + title + '\'' +
                 ", remark='" + remark + '\'' +
-                ", type='" + type + '\'' +
+                ", typeId='" + typeId + '\'' +
                 ", code='" + code + '\'' +
                 ", owner='" + owner + '\'' +
                 ", imgUrl='" + imgUrl + '\'' +

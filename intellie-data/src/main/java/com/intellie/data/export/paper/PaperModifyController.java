@@ -39,12 +39,12 @@ public class PaperModifyController extends BaseController {
     public Map createNewPaper(HttpServletRequest request, Emap em) {
 
         String title = request.getParameter("title");
-        String type = request.getParameter("type");
+        String typeId = request.getParameter("type");
         String level = request.getParameter("level");
         String remark = request.getParameter("remark");
         String code = request.getParameter("code");
 
-        if (StringUtil.isNull(title) || StringUtil.isNull(type) || StringUtil.isNull(level) || StringUtil.isNull(code)) {
+        if (StringUtil.isNull(title) || StringUtil.isNull(typeId) || StringUtil.isNull(level) || StringUtil.isNull(code)) {
             return em.fail("试卷属性不完整");
         }
 
@@ -55,7 +55,7 @@ public class PaperModifyController extends BaseController {
             boolean existPaper = paperInfoService.isExistPaper(paper);
             paper.setTitle(title);
             paper.setOwner(loginStatus.getId());
-            paper.setType(type);
+            paper.setTypeId(typeId);
             paper.setLevel(level);
             paper.setRemark(remark);
             if (!existPaper) {

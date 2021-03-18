@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.intellie.data.provider.dao.PaperInfoDao">
+<mapper namespace="com.intellie.data.provider.dao.paper.PaperInfoDao">
     <select id="queryPaperInfo" parameterType="com.intellie.data.entity.paper.Paper"
             resultType="com.intellie.data.entity.paper.Paper">
         select * from e_paper ep
@@ -22,32 +22,42 @@
         <if test="level!=null and level!=''">
             AND ep.level = #{level}
         </if>
-        <if test="type!=null and type!=''">
-            AND ep.type = #{type}
+        <if test="typeId!=null and typeId!=''">
+            AND ep.typeId = #{typeId}
         </if>
     </select>
-    <select id="queryPaperCompleteList" parameterType="com.intellie.data.entity.paper.Paper"
+    <select id="queryPaperCompleteList" parameterType="com.intellie.data.entity.paper.PaperQueryCondition"
             resultType="com.intellie.data.entity.paper.PaperComplete">
-        select * from e_paper ep
-        where
-        1=1
-        <if test="owner!=null and owner!=''">
-            AND ep.owner = #{owner}
-        </if>
-        <if test="code!=null and code!=''">
-            AND ep.code = #{code}
-        </if>
-        <if test="title!=null and title!=''">
-            AND ep.title = #{title}
-        </if>
+        select * from
+         (select a.*,b.type from (
+        select ep.id,ep.code ,ep.del ,ep.imgUrl  ,ep.`level` ,ep.owner ,ep.remark ,ep.`time` ,ep.title ,ep.typeId
+        ,epa.delivery ,epa.duration ,epa.`end` ,epa.isCamera ,epa.iscopy
+        ,epa.isDoRname ,epa.isOpenForever ,epa.ispaste ,epa.isrname ,epa.isShowResult
+        ,epa.`join` ,epa.`leave` ,epa.noMark ,epa.page ,epa.submit ,epa.status
+        ,epa.`start` ,epa.personal from e_paper ep left join e_paper_attribute epa
+        on ep.id  = epa.paper_id) a,(
+        select ept.id ,ept.name `type` from e_user eu ,e_paper_type ept
+        where ept.user_id = eu.id and eu.id = 1001
+        ) b where a.typeId=b.id
+        ) c where
+         c.owner= #{owner}
         <if test="del!=null and del!=''">
-            AND ep.del = #{del}
+            AND c.del = #{del}
         </if>
-        <if test="level!=null and level!=''">
-            AND ep.level = #{level}
+        <if test="key!=null and key!=''">
+            and (
+            c.code LIKE concat('%',#{key},'%')
+            or
+            c.title LIKE concat('%',#{key},'%')
+            or
+            c.type LIKE concat('%',#{key},'%')
+            )
         </if>
-        <if test="type!=null and type!=''">
-            AND ep.type = #{type}
+        <if test="personal!=null and personal!=''">
+            AND c.personal = #{personal}
+        </if>
+        <if test="isPage!=null and isPage!=''">
+            limit #{startIndex},#{pageSize}
         </if>
     </select>
 </mapper>

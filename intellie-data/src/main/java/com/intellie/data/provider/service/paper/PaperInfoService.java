@@ -2,8 +2,10 @@ package com.intellie.data.provider.service.paper;
 
 import com.intellie.data.entity.paper.Paper;
 import com.intellie.data.entity.paper.PaperComplete;
+import com.intellie.data.entity.paper.PaperQueryCondition;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
 import java.util.List;
 
 /**
@@ -24,5 +26,5 @@ public interface PaperInfoService {
      * */
     Paper getPaperBaseInfo(Paper paper);
 
-    List<PaperComplete> getPaperList(Paper paper);
+    List<PaperComplete> getPaperList(PaperQueryCondition condition) throws ParseException;
 }
