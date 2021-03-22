@@ -9,4 +9,6 @@ package com.intellie.data.entity.base;
 public class BaseConst {
     public static final String DEL = "1";
     public static final String NO_DEL = "0";
+    public static final String PERSONAL = "0";
+    public static final String NO_PERSONAL= "1";
 }

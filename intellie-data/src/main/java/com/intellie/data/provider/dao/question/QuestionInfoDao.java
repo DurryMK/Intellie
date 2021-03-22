@@ -19,4 +19,5 @@ public interface QuestionInfoDao {
     List<Question> queryUserQuestionList(QuestionQueryCondition condition);
 
     List<String> queryUserQuestionIdList(QuestionQueryCondition condition);
+
 }

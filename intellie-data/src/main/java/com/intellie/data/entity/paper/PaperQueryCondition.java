@@ -17,7 +17,7 @@ public class PaperQueryCondition extends BaseEntity {
 
       private int startIndex;
 
-      private int total;
+      private long total;
 
       private String key;
 
@@ -27,7 +27,15 @@ public class PaperQueryCondition extends BaseEntity {
 
       private String del;
 
-      private String isPage;
+      private String paperId;
+
+    public String getPaperId() {
+        return paperId;
+    }
+
+    public void setPaperId(String paperId) {
+        this.paperId = paperId;
+    }
 
     public int getCurrentPage() {
         return currentPage;
@@ -53,11 +61,11 @@ public class PaperQueryCondition extends BaseEntity {
         this.startIndex = startIndex;
     }
 
-    public int getTotal() {
+    public long getTotal() {
         return total;
     }
 
-    public void setTotal(int total) {
+    public void setTotal(long total) {
         this.total = total;
     }
 
@@ -91,14 +99,6 @@ public class PaperQueryCondition extends BaseEntity {
 
     public void setDel(String del) {
         this.del = del;
-    }
-
-    public String getIsPage() {
-        return isPage;
-    }
-
-    public void setIsPage(String isPage) {
-        this.isPage = isPage;
     }
 
     @Override

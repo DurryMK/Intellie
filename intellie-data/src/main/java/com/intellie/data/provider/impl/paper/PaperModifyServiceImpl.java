@@ -5,11 +5,13 @@ import com.intellie.common.utils.PBEUtil;
 import com.intellie.common.utils.StringUtil;
 import com.intellie.data.entity.paper.Paper;
 import com.intellie.data.entity.paper.PaperAttribute;
+import com.intellie.data.entity.paper.PaperQuestion;
 import com.intellie.data.provider.dao.paper.PaperModifyDao;
 import com.intellie.data.provider.service.paper.PaperModifyService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @author durry
@@ -54,9 +56,10 @@ public class PaperModifyServiceImpl implements PaperModifyService {
     }
 
     @Override
-    public void modifyPaperQuestion(Paper paper) {
-
+    public void addPaperQuestion(List<PaperQuestion> list) {
+        dao.insertPaperQuestion(list);
     }
+
 
     @Override
     public void modifyPaper(Paper paper) {

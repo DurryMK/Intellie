@@ -53,8 +53,10 @@ public class DataPermission {
             }
             //只放行已登录的请求
             User loginStatus = commonService.getLoginStatus(request);
-            if(loginStatus == null)
-                return em.invalid();
+            if(loginStatus == null){
+                if(!request.getRequestURI().contains("/exam/"))
+                    return em.invalid();
+            }
             return joinPoint.proceed();
         } catch (Throwable e) {
             logger.error("【切面处理异常】:{}", e);

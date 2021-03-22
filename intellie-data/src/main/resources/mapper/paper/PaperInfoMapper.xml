@@ -28,19 +28,31 @@
     </select>
     <select id="queryPaperCompleteList" parameterType="com.intellie.data.entity.paper.PaperQueryCondition"
             resultType="com.intellie.data.entity.paper.PaperComplete">
-        select * from
-         (select a.*,b.type from (
-        select ep.id,ep.code ,ep.del ,ep.imgUrl  ,ep.`level` ,ep.owner ,ep.remark ,ep.`time` ,ep.title ,ep.typeId
-        ,epa.delivery ,epa.duration ,epa.`end` ,epa.isCamera ,epa.iscopy
-        ,epa.isDoRname ,epa.isOpenForever ,epa.ispaste ,epa.isrname ,epa.isShowResult
-        ,epa.`join` ,epa.`leave` ,epa.noMark ,epa.page ,epa.submit ,epa.status
-        ,epa.`start` ,epa.personal from e_paper ep left join e_paper_attribute epa
-        on ep.id  = epa.paper_id) a,(
-        select ept.id ,ept.name `type` from e_user eu ,e_paper_type ept
-        where ept.user_id = eu.id and eu.id = 1001
-        ) b where a.typeId=b.id
-        ) c where
-         c.owner= #{owner}
+        SELECT *
+        FROM (
+        SELECT ep.id, ep.code, ep.del, ep.imgUrl, ep.`level`
+        , ep.owner, ep.remark, ep.`time`, ep.title, ep.typeId
+        , epa.delivery, epa.duration, epa.`end`, epa.isCamera, epa.iscopy
+        , epa.isDoRname, epa.isOpenForever, epa.ispaste, epa.isrname, epa.isShowResult
+        , epa.`join`, epa.`leave`,epa.passMark, epa.noMark, epa.page, epa.submit
+        , epa.status, epa.`start`, epa.personal, epq2.questionNum, b.`type`
+        FROM e_paper ep
+        LEFT JOIN e_paper_attribute epa ON ep.id = epa.paper_id
+        LEFT JOIN (
+        SELECT epq.paper_id, COUNT(1) AS questionNum
+        FROM e_paper_question epq
+        GROUP BY epq.paper_id
+        ) epq2
+        ON epq2.paper_id = ep.id
+        LEFT JOIN (
+        SELECT ept.id, ept.name AS `type`
+        FROM e_user eu, e_paper_type ept
+        WHERE ept.user_id = eu.id
+        AND eu.id = 1001
+        ) b
+        ON ep.typeId = b.id
+        ) c
+        WHERE  c.owner= #{owner}
         <if test="del!=null and del!=''">
             AND c.del = #{del}
         </if>
@@ -56,8 +68,56 @@
         <if test="personal!=null and personal!=''">
             AND c.personal = #{personal}
         </if>
-        <if test="isPage!=null and isPage!=''">
-            limit #{startIndex},#{pageSize}
+    </select>
+    <select id="queryPaperQuestionList" parameterType="com.intellie.data.entity.paper.Paper"
+            resultType="com.intellie.data.entity.question.Question">
+        SELECT *
+        FROM (
+        SELECT eq.id, eq.title, eq.`type` AS typeId, eq.`time`, eq.`from`
+        , eq.origin
+        , CASE eq.`level`
+        WHEN 1 THEN '简单'
+        WHEN 2 THEN '一般'
+        WHEN 3 THEN '中等'
+        WHEN 4 THEN '较难'
+        WHEN 5 THEN '极难'
+        END AS `levelStr`, eq.`level`, eq.createtype, eq.owner, eq.site
+        , eq.del, eqa.content, eqa.correct, eqa.`options`, eqt.name AS `type`
+        FROM e_question eq
+        LEFT JOIN e_question_attribute eqa
+        ON eq.contentid = eqa.id
+        <if test="del!=null and del!=''">
+            AND eq.del = #{del}
+        </if>
+        LEFT JOIN e_question_type eqt ON eqt.id = eq.`type`
+        ) a
+        WHERE
+        1=1
+        <if test="paperId!=null and paperId!=''">
+            AND a.id IN (
+            SELECT euq.question_id
+            FROM e_user_questions euq
+            WHERE euq.user_id = #{userId}
+            )
+        </if>
+        <if test="userId!=null and userId!=''">
+            AND a.id IN (
+            SELECT epq.question_id
+            FROM e_paper_question epq
+            WHERE epq.paper_id = #{paperId}
+            )
+        </if>
+        <if test="key!=null and key!=''">
+            and (
+            a.content LIKE concat('%',#{key},'%')
+            or
+            a.title LIKE concat('%',#{key},'%')
+            or
+            a.type LIKE concat('%',#{key},'%')
+            )
+        </if>
+        <if test="owner!=null and owner!=''">
+            and a.owner = #{owner}
         </if>
     </select>
 </mapper>

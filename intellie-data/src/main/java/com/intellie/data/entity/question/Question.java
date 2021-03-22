@@ -33,7 +33,55 @@ public class Question extends BaseEntity {
     private String createType;//创建方式
     private String correct;//正确答案
     private String options;//可选项
+    /**
+     * 只读属性
+     * */
     private String isAdd;//是否已经收藏
+    private double score;//分值
+    private String levelStr;//难度
+    private int sort;//排序
+    private String paperId;//所属试卷
+    private String preView;//预览内容
+
+    public String getLevelStr() {
+        return levelStr;
+    }
+
+    public void setLevelStr(String levelStr) {
+        this.levelStr = levelStr;
+    }
+
+    public String getPreView() {
+        return preView;
+    }
+
+    public void setPreView(String preView) {
+        this.preView = preView;
+    }
+
+    public double getScore() {
+        return score;
+    }
+
+    public void setScore(double score) {
+        this.score = score;
+    }
+
+    public int getSort() {
+        return sort;
+    }
+
+    public void setSort(int sort) {
+        this.sort = sort;
+    }
+
+    public String getPaperId() {
+        return paperId;
+    }
+
+    public void setPaperId(String paperId) {
+        this.paperId = paperId;
+    }
 
     @Override
     public String toString() {

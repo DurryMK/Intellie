@@ -1,5 +1,7 @@
 package com.intellie.data.entity.paper;
 
+import java.util.List;
+
 /**
  * @author durry
  * @version 1.0
@@ -10,6 +12,7 @@ public class PaperComplete {
     private String id;//试卷序号
     private String title;//标题
     private String remark;//描述
+    private String typeId;//类型id
     private String type;//类型
     private String code;//唯一编号
     private String owner;//创建者
@@ -37,6 +40,32 @@ public class PaperComplete {
     private String isShowResult;//是否在考试结束后立即显示成绩
     private String submit;//是否允许随时提交试卷
     private String isRunning;//是否正在进行中
+    private int questionNum;
+    private long totalScore;//总分
+
+    public long getTotalScore() {
+        return totalScore;
+    }
+
+    public void setTotalScore(long totalScore) {
+        this.totalScore = totalScore;
+    }
+
+    public String getTypeId() {
+        return typeId;
+    }
+
+    public void setTypeId(String typeId) {
+        this.typeId = typeId;
+    }
+
+    public int getQuestionNum() {
+        return questionNum;
+    }
+
+    public void setQuestionNum(int questionNum) {
+        this.questionNum = questionNum;
+    }
 
     public String getId() {
         return id;

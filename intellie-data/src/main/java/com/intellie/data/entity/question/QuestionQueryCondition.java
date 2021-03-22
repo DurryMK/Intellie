@@ -25,6 +25,26 @@ public class QuestionQueryCondition extends BaseEntity {
 
       private String del;
 
+    private String userId;
+
+    private String paperId;
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public String getPaperId() {
+        return paperId;
+    }
+
+    public void setPaperId(String paperId) {
+        this.paperId = paperId;
+    }
+
     public String getQuestionId() {
         return questionId;
     }

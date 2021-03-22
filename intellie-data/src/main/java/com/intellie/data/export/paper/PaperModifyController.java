@@ -6,6 +6,7 @@ import com.intellie.common.entity.user.UserDetail;
 import com.intellie.common.utils.StringUtil;
 import com.intellie.data.entity.paper.Paper;
 import com.intellie.data.entity.paper.PaperAttribute;
+import com.intellie.data.entity.paper.PaperQuestion;
 import com.intellie.data.export.base.BaseController;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -24,13 +27,6 @@ import java.util.Map;
 @RestController
 @RequestMapping("paper/modify")
 public class PaperModifyController extends BaseController {
-
-
-//    title: '',
-//    type: '0',
-//    remark: '',
-//    level: 2,
-//    code: null,
 
     /**
      * 创建一张新的试卷
@@ -72,43 +68,6 @@ public class PaperModifyController extends BaseController {
         return em.fail("试卷创建失败");
     }
 
-//    /**
-//     * 修改试卷的内容
-//     */
-//    @PostMapping("modifyPaper")
-//    public Map modifyPaper(HttpServletRequest request, Emap em) {
-//
-//        String title = request.getParameter("title");
-//        String type = request.getParameter("type");
-//        String level = request.getParameter("level");
-//        String remark = request.getParameter("remark");
-//        String code = request.getParameter("code");
-//
-//        if (StringUtil.isNull(title) || StringUtil.isNull(type) || StringUtil.isNull(level) || StringUtil.isNull(code)) {
-//            return em.fail("试卷属性不完整");
-//        }
-//
-//        try {
-//            User loginStatus = commonService.getLoginStatus(request);
-//            Paper paper = new Paper();
-//            paper.setCode(code);
-//            paper.setOwner(loginStatus.getId());
-//
-//            if (!paperInfoService.isExistPaper(paper))
-//                return em.fail("试卷不存在");
-//
-//            paper.setTitle(title);
-//            paper.setType(type);
-//            paper.setLevel(level);
-//            paper.setRemark(remark);
-//
-//            paperModifyService.modifyPaper(paper);
-//            return em.success("成功保存试卷");
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        return em.fail("试卷属性修改失败");
-//    }
 
     @PostMapping("modifyPaperAttribute")
     public Map modifyPaperAttribute(HttpServletRequest request, Emap em, PaperAttribute attribute) {
@@ -124,6 +83,38 @@ public class PaperModifyController extends BaseController {
         } catch (Exception e) {
             e.printStackTrace();
             return em.fail("设置失败");
+        }
+    }
+
+    @PostMapping("modifyPaperQuestionList")
+    public Map modifyPaperQuestionList(HttpServletRequest request, Emap em) {
+        try {
+            String code = request.getParameter("code");
+            String list = request.getParameter("list");
+            Paper paper = new Paper();
+            paper.setCode(code);
+            paper = paperInfoService.getPaperBaseInfo(paper);
+            if (paper == null)
+                return em.fail("试卷不存在");
+            String[] listArray = list.split("\\.");
+            String[] split;
+            List<PaperQuestion> paperQuestionList = new ArrayList<>();
+            for (String item : listArray) {
+                split = item.split("\\|");
+                PaperQuestion paperQuestion = new PaperQuestion();
+                paperQuestion.setPaperId(paper.getId());
+                paperQuestion.setQuestionId(split[0]);
+                paperQuestion.setScore(split[1]);
+                paperQuestion.setSort(split[2]);
+                paperQuestionList.add(paperQuestion);
+            }
+            if(paperQuestionList.size() <= 0)
+                return em.success("保存成功");
+            paperModifyService.addPaperQuestion(paperQuestionList);
+            return em.success("保存成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return em.fail("保存失败");
         }
     }
 }

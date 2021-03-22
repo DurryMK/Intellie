@@ -2,7 +2,11 @@ package com.intellie.data.provider.dao.paper;
 
 import com.intellie.data.entity.paper.Paper;
 import com.intellie.data.entity.paper.PaperAttribute;
+import com.intellie.data.entity.paper.PaperQuestion;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * @author durry
@@ -19,4 +23,6 @@ public interface PaperModifyDao {
     void insertPaperAttribute(PaperAttribute paperAttribute);
 
     void updatePaperAttribute(PaperAttribute paperAttribute);
+
+    void insertPaperQuestion(@Param("list") List<PaperQuestion> paperQuestionList);
 }

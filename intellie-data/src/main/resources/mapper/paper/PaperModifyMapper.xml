@@ -33,14 +33,22 @@
         ep.code = #{code}
     </update>
     <insert id="insertPaperAttribute" parameterType="com.intellie.data.entity.paper.PaperAttribute">
-        INSERT INTO exam.e_paper_attribute (id,paper_id,`join`,page,
-        iscopy,ispaste,isrname,`leave`,isCamera,isDoRname,duration,delivery,`start`,
-        `end`,isOpenForever,passMark,noMark,isShowResult,submit,personal,status,modifyTime) VALUES
-        (#{id},#{paperId},#{join},#{page},#{isCopy},
-        #{isPaste},#{isRname},#{leave},#{isCamera},#{isDoRname},
-        #{duration},#{delivery},#{start},#{end},#{isOpenForever},#{passMark},
-        #{noMark},#{isShowResult},#{submit},#{personal},#{status},
-        #{modifyTime})
+        INSERT INTO exam.e_paper_attribute (id, paper_id, `join`, page, iscopy
+	, ispaste, isrname, `leave`, isCamera, isDoRname
+	, duration, delivery, `start`, `end`, isOpenForever
+	, passMark, noMark, isShowResult, submit, personal
+	, status, modifyTime)
+            VALUES (#{id}, #{paperId}, #{join}, #{page}, #{isCopy}
+	, #{isPaste}, #{isRname}, #{leave}, #{isCamera}, #{isDoRname}
+	, #{duration}, #{delivery}, #{start}, #{end}, #{isOpenForever}
+	, #{passMark}, #{noMark}, #{isShowResult}, #{submit}, #{personal}
+	, #{status}, #{modifyTime})
+    </insert>
+    <insert id="insertPaperQuestion" parameterType="com.intellie.data.entity.paper.PaperQuestion">
+        INSERT INTO exam.e_paper_question (paper_id,question_id,score,sort) VALUES
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.paperId},#{item.questionId},#{item.score},#{item.sort})
+        </foreach>
     </insert>
     <update id="updatePaperAttribute" parameterType="com.intellie.data.entity.paper.PaperAttribute">
         UPDATE exam.e_paper_attribute ep set

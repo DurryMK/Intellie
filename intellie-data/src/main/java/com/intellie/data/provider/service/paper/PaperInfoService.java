@@ -3,6 +3,7 @@ package com.intellie.data.provider.service.paper;
 import com.intellie.data.entity.paper.Paper;
 import com.intellie.data.entity.paper.PaperComplete;
 import com.intellie.data.entity.paper.PaperQueryCondition;
+import com.intellie.data.entity.question.Question;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
@@ -26,5 +27,10 @@ public interface PaperInfoService {
      * */
     Paper getPaperBaseInfo(Paper paper);
 
+    /**获取试卷列表信息*/
     List<PaperComplete> getPaperList(PaperQueryCondition condition) throws ParseException;
+
+    PaperComplete getPaperExamInfo(String code);
+
+    List<Question> getPaperQuestionList(Paper paper);
 }

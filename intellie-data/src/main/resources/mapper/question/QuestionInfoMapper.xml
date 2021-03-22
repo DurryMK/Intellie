@@ -4,50 +4,55 @@
 <mapper namespace="com.intellie.data.provider.dao.question.QuestionInfoDao">
     <select id="queryQuestionList" parameterType="com.intellie.data.entity.question.QuestionQueryCondition"
             resultType="com.intellie.data.entity.question.Question">
-        select a.*,eqt.name `type`
-        from
-        (select
-        eq.id ,
-        eq.title ,
-        eq.`type` as typeId ,
-        eq.`time` ,
-        eq.`from` ,
-        eq.origin ,
-        CASE eq.`level`
-        WHEN 1 THEN
-        '简单'
-        WHEN 2 THEN
-        '一般'
-        WHEN 3 THEN
-        '中等'
-        WHEN 4 THEN
-        '较难'
-        WHEN 5 THEN
-        '极难'
-        END `level`
-         ,
-        eq.createtype ,
-        eq.owner ,
-        eq.site ,
-        eq.del ,
-        eqa.content ,
-        eqa.correct ,
-        eqa.`options`
-        from e_question eq left join e_question_attribute eqa
-        on eq.owner =  #{owner} and eq.contentid = eqa.id
-        ) a , e_question_type eqt
-        where eqt.id = a.typeId
+        SELECT *
+        FROM (
+        SELECT eq.id, eq.title, eq.`type` AS typeId, eq.`time`, eq.`from`
+        , eq.origin
+        , CASE eq.`level`
+        WHEN 1 THEN '简单'
+        WHEN 2 THEN '一般'
+        WHEN 3 THEN '中等'
+        WHEN 4 THEN '较难'
+        WHEN 5 THEN '极难'
+        END AS `levelStr`, eq.`level`, eq.createtype, eq.owner, eq.site
+        , eq.del, eqa.content, eqa.correct, eqa.`options`, eqt.name AS `type`
+        ,epq.score ,epq.sort
+        FROM e_question eq
+        LEFT JOIN e_question_attribute eqa
+        ON eq.contentid = eqa.id
         <if test="del!=null and del!=''">
-            AND a.del = #{del}
+            AND eq.del = #{del}
+        </if>
+        LEFT JOIN e_question_type eqt ON eqt.id = eq.`type`
+        left join e_paper_question epq on epq.question_id = eq.id
+        ) a
+        WHERE
+        1=1
+        <if test="userId!=null and userId!=''">
+            AND a.id IN (
+            SELECT euq.question_id
+            FROM e_user_questions euq
+            WHERE euq.user_id = #{userId}
+            )
+        </if>
+        <if test="paperId!=null and paperId!=''">
+            AND a.id IN (
+            SELECT epq.question_id
+            FROM e_paper_question epq
+            WHERE epq.paper_id = #{paperId}
+            )
         </if>
         <if test="key!=null and key!=''">
             and (
-            a.code LIKE concat('%',#{key},'%')
+            a.content LIKE concat('%',#{key},'%')
             or
             a.title LIKE concat('%',#{key},'%')
             or
             a.type LIKE concat('%',#{key},'%')
             )
+        </if>
+        <if test="owner!=null and owner!=''">
+            and a.owner = #{owner}
         </if>
     </select>
     <select id="queryUserQuestionList" parameterType="com.intellie.data.entity.question.QuestionQueryCondition"
@@ -55,8 +60,8 @@
         SELECT a.*,eqt.name `type` FROM (
         SELECT
         eq.id, eq.title, eq.`type` AS typeId, eq.`time`, eq.`from`, eq.origin,
-        CASE eq.`level` WHEN 1 THEN '简单' WHEN 2 THEN '一般' WHEN 3 THEN '中等' WHEN 4 THEN '较难' WHEN 5 THEN '极难' END `level`,
-        eq.createtype, eq.owner, eq.site, eq.del, eqa.content, eqa.correct, eqa.`options`
+        CASE eq.`level` WHEN 1 THEN '简单' WHEN 2 THEN '一般' WHEN 3 THEN '中等' WHEN 4 THEN '较难' WHEN 5 THEN '极难' END `levelStr`
+        ,eq.`level`,eq.createtype, eq.owner, eq.site, eq.del, eqa.content, eqa.correct, eqa.`options`
         FROM e_question eq LEFT JOIN e_question_attribute eqa ON eq.contentid = eqa.id) a,
         e_question_type eqt
         WHERE

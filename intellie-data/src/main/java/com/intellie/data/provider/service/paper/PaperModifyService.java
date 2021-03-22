@@ -1,7 +1,11 @@
 package com.intellie.data.provider.service.paper;
+
 import com.intellie.data.entity.paper.Paper;
 import com.intellie.data.entity.paper.PaperAttribute;
+import com.intellie.data.entity.paper.PaperQuestion;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @author durry
@@ -12,7 +16,10 @@ import org.springframework.stereotype.Service;
 @Service
 public interface PaperModifyService {
     void createNewPaper(Paper paper);
-    void modifyPaperAttribute(Paper paper , PaperAttribute attribute);
-    void modifyPaperQuestion(Paper paper);
+
+    void modifyPaperAttribute(Paper paper, PaperAttribute attribute);
+
+    void addPaperQuestion(List<PaperQuestion> list);
+
     void modifyPaper(Paper paper);
 }
