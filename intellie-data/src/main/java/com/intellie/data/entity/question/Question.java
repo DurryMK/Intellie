@@ -36,10 +36,10 @@ public class Question extends BaseEntity {
     /**
      * 只读属性
      * */
-    private String isAdd;//是否已经收藏
+    private String isAdd;//是否已经收藏 1是 0否
     private double score;//分值
     private String levelStr;//难度
-    private int sort;//排序
+    private Integer sort;//排序
     private String paperId;//所属试卷
     private String preView;//预览内容
 
@@ -67,11 +67,11 @@ public class Question extends BaseEntity {
         this.score = score;
     }
 
-    public int getSort() {
+    public Integer getSort() {
         return sort;
     }
 
-    public void setSort(int sort) {
+    public void setSort(Integer sort) {
         this.sort = sort;
     }
 

@@ -11,30 +11,30 @@ import com.intellie.common.entity.system.BaseEntity;
 public class QuestionQueryCondition extends BaseEntity {
     private static final long serialVersionUID = 1906423039792419127L;
 
-      private int currentPage;
+    private int currentPage;
 
-      private int pageSize;
+    private int pageSize;
 
-      private long total;
+    private long total;
 
-      private String key;
+    private String key;
 
-      private String owner;
+    private String owner;
 
-      private String questionId;
+    private String questionId;
 
-      private String del;
-
-    private String userId;
+    private String del;
 
     private String paperId;
 
-    public String getUserId() {
-        return userId;
+    private String add;
+
+    public String getAdd() {
+        return add;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setAdd(String add) {
+        this.add = add;
     }
 
     public String getPaperId() {

@@ -11,4 +11,6 @@ public class BaseConst {
     public static final String NO_DEL = "0";
     public static final String PERSONAL = "0";
     public static final String NO_PERSONAL= "1";
+    public static final String linkSplit = "22SPLIT";
+    public static final String PLUS_STR = "23PLUS";
 }

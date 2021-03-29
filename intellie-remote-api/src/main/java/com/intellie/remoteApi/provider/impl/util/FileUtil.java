@@ -1,4 +1,4 @@
-package com.intellie.referenceapi.provider.remoteInterface.iBaidu.utils;
+package com.intellie.remoteApi.provider.impl.util;
 
 import java.io.*;
 

@@ -1,13 +1,14 @@
 /*
  * Copyright (C) 2017 Baidu, Inc. All Rights Reserved.
  */
-package com.intellie.referenceapi.provider.remoteInterface.iBaidu.utils;
-
-import java.lang.reflect.Type;
+package com.intellie.remoteApi.provider.impl.util;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonParseException;
+
+import java.lang.reflect.Type;
+
 /**
  * Json工具类.
  */

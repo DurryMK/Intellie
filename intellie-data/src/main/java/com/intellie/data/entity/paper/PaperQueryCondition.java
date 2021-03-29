@@ -23,11 +23,21 @@ public class PaperQueryCondition extends BaseEntity {
 
       private String owner;
 
+      private String code;
+
       private String personal;
 
       private String del;
 
       private String paperId;
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
 
     public String getPaperId() {
         return paperId;

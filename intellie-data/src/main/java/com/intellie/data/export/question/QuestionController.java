@@ -15,10 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @author durry
@@ -29,40 +26,46 @@ import java.util.Set;
 @RestController
 @RequestMapping("question/info")
 public class QuestionController extends BaseController {
+
     /**
      * 获取用户创建的题目信息列表
      */
-    @PostMapping("getQuestionList")
+    @PostMapping("getSysQuestionList")
     public Map getQuestionList(HttpServletRequest request, Emap em, QuestionQueryCondition condition) {
         try {
-            User loginStatus = commonService.getLoginStatus(request);
-            //获取题目分页信息
+            List<Question> resultList = new ArrayList<>();
+            //0 系统用户
+            condition.setOwner("0");
+            //分页查询
             Page<Object> helper = PageHelper.startPage(condition.getCurrentPage(), condition.getPageSize());
             List<Question> questionList = questionInfoService.getQuestionList(condition);
             long total = helper.getTotal();
-            condition = new QuestionQueryCondition();
-            condition.setDel(BaseConst.NO_DEL);
-            condition.setOwner(loginStatus.getId());
             condition.setTotal(total);
             //筛选出难度和类型
             Set<String> types = new HashSet<>();
             Set<String> levels = new HashSet<>();
             for (Question question : questionList) {
-                types.add(question.getType());
-                levels.add(question.getLevel());
-            }
-            List<String> userQuestionIdList = questionInfoService.getUserQuestionIdList(condition);
-            for(Question question : questionList){
-                if(userQuestionIdList.contains(question.getId())){
-                    question.setIsAdd("1");
+                if (!"-1".equals(condition.getAdd())) {
+                    if (question.getIsAdd().equals(condition.getAdd())) {
+                        types.add(question.getType());
+                        levels.add(question.getLevelStr());
+                        resultList.add(question);
+                    }
+                } else if ("-1".equals(condition.getAdd())) {
+                    types.add(question.getType());
+                    levels.add(question.getLevelStr());
                 }
             }
-            return em.success(new String[]{"condition", "list", "types", "levels"}, condition, questionList, types, levels);
+            if ("-1".equals(condition.getAdd())) {
+                resultList = questionList;
+            }
+            return em.success(new String[]{"condition", "list", "types", "levels"}, condition, resultList, types, levels);
         } catch (Exception e) {
             e.printStackTrace();
         }
         return em.fail("获取信息失败");
     }
+
     /**
      * 获取用户拥有的题目信息列表
      */

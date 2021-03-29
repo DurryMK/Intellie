@@ -19,6 +19,7 @@
         <option value="$PROJECT_DIR$/intellie-common/pom.xml" />
         <option value="$PROJECT_DIR$/intellie-gateway/pom.xml" />
         <option value="$PROJECT_DIR$/intellie-demo/pom.xml" />
+        <option value="$PROJECT_DIR$/intellie-remote-api/pom.xml" />
       </list>
     </option>
   </component>

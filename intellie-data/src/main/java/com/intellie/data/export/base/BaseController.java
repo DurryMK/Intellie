@@ -1,7 +1,7 @@
 package com.intellie.data.export.base;
 
-import com.github.pagehelper.PageHelper;
 import com.intellie.data.provider.service.common.CommonService;
+import com.intellie.data.provider.service.exam.ExamService;
 import com.intellie.data.provider.service.paper.PaperInfoService;
 import com.intellie.data.provider.service.paper.PaperModifyService;
 import com.intellie.data.provider.service.question.QuestionInfoService;
@@ -29,4 +29,6 @@ public abstract class BaseController {
 
     @Autowired
     protected QuestionModifyService questionModifyService;
+    @Autowired
+    protected ExamService examService;
 }

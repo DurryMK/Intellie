@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.intellie.data.provider.dao.exam.ExamInfoDao">
+    <select id="queryPaperQuestion" parameterType="com.intellie.data.entity.paper.Paper"
+            resultType="com.intellie.data.entity.question.Question">
+        SELECT a.*, eq.contentid, eq.createType, eq.del, eq.`from`
+	, eq.`level`, eq.origin, eq.owner, eq.site, eq.`time`
+	, eq.title, eq.`type` AS typeId, eqa.content, eqa.correct, eqa.`options`
+	, eqt.name AS `type`
+FROM (
+	SELECT *
+	FROM e_paper_question epq
+	WHERE epq.paper_id = #{id}
+) a
+	LEFT JOIN e_question eq ON a.question_id = eq.id
+	LEFT JOIN e_question_attribute eqa ON eq.contentid = eqa.id
+	LEFT JOIN e_question_type eqt ON eqt.id = eq.`type`
+    </select>
+</mapper>

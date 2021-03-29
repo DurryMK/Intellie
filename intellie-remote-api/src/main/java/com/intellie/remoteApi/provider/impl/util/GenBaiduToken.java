@@ -1,4 +1,4 @@
-package com.intellie.referenceapi.provider.remoteInterface.iBaidu;
+package com.intellie.remoteApi.provider.impl.util;
 
 
 import org.codehaus.jettison.json.JSONObject;
@@ -14,10 +14,6 @@ import java.util.Map;
  * 获取百度Api Token
  */
 public class GenBaiduToken {
-    public static void main(String[] args) {
-        System.out.println(getAuth());
-    }
-
     /**
      * 获取权限token
      *

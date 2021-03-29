@@ -1,8 +1,14 @@
 server:
   port: 8711
-  max-http-header-size: 102400
+  max-http-header-size: 1024000
   servlet:
     context-path: /
+  tomcat:
+    max-http-form-post-size: 10MB
+    accesslog:
+      enabled: true
+      encoding: utf-8
+      directory: D:/gatewayLogs
 eureka:
   client:
     serviceUrl:
@@ -15,6 +21,7 @@ spring:
     name: intellie-gateway
   cloud:
     gateway:
+
       routes:
         - id: route_intellie_user # 路由的id,没有规定规则但要求唯一,建议配合服务名
           #匹配后提供服务的路由地址
@@ -23,18 +30,25 @@ spring:
             - Path=/user/** # 匹配规则
           filters:
             - AddRequestParameter=GATEWAY_TOKEN, GATEWAY_TOKEN
-        - id: route_intellie_sms # 路由的id,没有规定规则但要求唯一,建议配合服务名
+        - id: route_intellie_sms # 路由的id
           #匹配后提供服务的路由地址
           uri: http://localhost:8716
           predicates:
             - Path=/sms/** # 匹配规则
           filters:
             - AddRequestParameter=GATEWAY_TOKEN, GATEWAY_TOKEN
-        - id: route_intellie_data # 路由的id,没有规定规则但要求唯一,建议配合服务名
+        - id: route_intellie_data # 路由的id
           #匹配后提供服务的路由地址
           uri: http://localhost:8714
           predicates:
             - Path=/data/** # 匹配规则
+          filters:
+            - AddRequestParameter=GATEWAY_TOKEN, GATEWAY_TOKEN
+        - id: route_intellie_remote # 路由的id
+          #匹配后提供服务的路由地址
+          uri: http://localhost:8715
+          predicates:
+            - Path=/remote/** # 匹配规则
           filters:
             - AddRequestParameter=GATEWAY_TOKEN, GATEWAY_TOKEN
       globalcors:
@@ -46,3 +60,6 @@ spring:
               - "http://127.0.0.1:8888"
             allowed-headers: "*"
             allowed-methods: "*"
+      httpclient:
+        max-header-size: 1024000
+        

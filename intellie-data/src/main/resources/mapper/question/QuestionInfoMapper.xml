@@ -15,33 +15,16 @@
         WHEN 4 THEN '较难'
         WHEN 5 THEN '极难'
         END AS `levelStr`, eq.`level`, eq.createtype, eq.owner, eq.site
-        , eq.del, eqa.content, eqa.correct, eqa.`options`, eqt.name AS `type`
-        ,epq.score ,epq.sort
+        , eq.del, eqa.content, eqa.correct, eqa.`options`, eqt.name AS `type`,
+        if ((eq.id in (
+        select euq.question_id from e_user_questions euq where euq.user_id  = 1001
+        )),'1','0') isadd
         FROM e_question eq
-        LEFT JOIN e_question_attribute eqa
-        ON eq.contentid = eqa.id
-        <if test="del!=null and del!=''">
-            AND eq.del = #{del}
-        </if>
-        LEFT JOIN e_question_type eqt ON eqt.id = eq.`type`
-        left join e_paper_question epq on epq.question_id = eq.id
+        LEFT JOIN e_question_attribute eqa ON eq.contentid = eqa.id
+        LEFT JOIN e_question_type eqt ON eq.`type` = eqt.id
         ) a
         WHERE
         1=1
-        <if test="userId!=null and userId!=''">
-            AND a.id IN (
-            SELECT euq.question_id
-            FROM e_user_questions euq
-            WHERE euq.user_id = #{userId}
-            )
-        </if>
-        <if test="paperId!=null and paperId!=''">
-            AND a.id IN (
-            SELECT epq.question_id
-            FROM e_paper_question epq
-            WHERE epq.paper_id = #{paperId}
-            )
-        </if>
         <if test="key!=null and key!=''">
             and (
             a.content LIKE concat('%',#{key},'%')
@@ -57,26 +40,29 @@
     </select>
     <select id="queryUserQuestionList" parameterType="com.intellie.data.entity.question.QuestionQueryCondition"
             resultType="com.intellie.data.entity.question.Question">
-        SELECT a.*,eqt.name `type` FROM (
-        SELECT
-        eq.id, eq.title, eq.`type` AS typeId, eq.`time`, eq.`from`, eq.origin,
-        CASE eq.`level` WHEN 1 THEN '简单' WHEN 2 THEN '一般' WHEN 3 THEN '中等' WHEN 4 THEN '较难' WHEN 5 THEN '极难' END `levelStr`
-        ,eq.`level`,eq.createtype, eq.owner, eq.site, eq.del, eqa.content, eqa.correct, eqa.`options`
-        FROM e_question eq LEFT JOIN e_question_attribute eqa ON eq.contentid = eqa.id) a,
-        e_question_type eqt
+        SELECT *
+        FROM (
+        SELECT euq.id, euq.user_id, euq.del, b.*
+        FROM e_user_questions euq
+        LEFT JOIN (
+        SELECT eq.id AS question_id, eq.title, eq.`type` AS typeId, eq.`time`, eq.`from`
+        , eq.origin
+        , CASE eq.`level`
+        WHEN 1 THEN '简单'
+        WHEN 2 THEN '一般'
+        WHEN 3 THEN '中等'
+        WHEN 4 THEN '较难'
+        WHEN 5 THEN '极难'
+        END AS `levelStr`, eq.`level`, eq.createtype, eq.owner, eq.site
+        , eqa.content, eqa.correct, eqa.`options`, eqt.name AS `type`
+        FROM e_question eq
+        LEFT JOIN e_question_attribute eqa ON eq.contentid = eqa.id
+        LEFT JOIN e_question_type eqt ON eq.`type` = eqt.id
+        ) b
+        ON euq.question_id = b.question_id
+        ) a
         WHERE
-        eqt.id = a.typeId
-        AND
-        a.id IN
-        (
-        SELECT euq.question_id FROM e_user_questions euq WHERE euq.user_id = #{owner}
-        <if test="del!=null and del!=''">
-            and euq.del=#{del}
-        </if>
-        <if test="questionId!=null and questionId!=''">
-            and euq.question_id=#{questionId}
-        </if>
-        )
+        1=1
         <if test="key!=null and key!=''">
             and (
             a.content LIKE concat('%',#{key},'%')
@@ -85,6 +71,12 @@
             or
             a.type LIKE concat('%',#{key},'%')
             )
+        </if>
+        <if test="owner!=null and owner!=''">
+            and a.user_id = #{owner}
+        </if>
+        <if test="questionId!=null and questionId!=''">
+            and a.question_id = #{questionId}
         </if>
     </select>
     <select id="queryUserQuestionIdList" parameterType="com.intellie.data.entity.question.QuestionQueryCondition"

@@ -29,8 +29,4 @@ public interface PaperInfoService {
 
     /**获取试卷列表信息*/
     List<PaperComplete> getPaperList(PaperQueryCondition condition) throws ParseException;
-
-    PaperComplete getPaperExamInfo(String code);
-
-    List<Question> getPaperQuestionList(Paper paper);
 }

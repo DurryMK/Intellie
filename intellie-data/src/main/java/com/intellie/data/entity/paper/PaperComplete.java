@@ -1,7 +1,5 @@
 package com.intellie.data.entity.paper;
 
-import java.util.List;
-
 /**
  * @author durry
  * @version 1.0
@@ -39,9 +37,19 @@ public class PaperComplete {
     private String noMark;//不及格的评语
     private String isShowResult;//是否在考试结束后立即显示成绩
     private String submit;//是否允许随时提交试卷
-    private String isRunning;//是否正在进行中
-    private int questionNum;
+    private String runningStatus;//是否正在进行中
+    private String runningStatusStr;//
+    private int questionNum;//题数
     private long totalScore;//总分
+    private String examLink;//考试链接
+
+    public String getExamLink() {
+        return examLink;
+    }
+
+    public void setExamLink(String examLink) {
+        this.examLink = examLink;
+    }
 
     public long getTotalScore() {
         return totalScore;
@@ -299,12 +307,20 @@ public class PaperComplete {
         this.submit = submit;
     }
 
-    public String getIsRunning() {
-        return isRunning;
+    public String getRunningStatus() {
+        return runningStatus;
     }
 
-    public void setIsRunning(String isRunning) {
-        this.isRunning = isRunning;
+    public void setRunningStatus(String runningStatus) {
+        this.runningStatus = runningStatus;
+    }
+
+    public String getRunningStatusStr() {
+        return runningStatusStr;
+    }
+
+    public void setRunningStatusStr(String runningStatusStr) {
+        this.runningStatusStr = runningStatusStr;
     }
 
     @Override
@@ -339,7 +355,6 @@ public class PaperComplete {
                 ", noMark='" + noMark + '\'' +
                 ", isShowResult='" + isShowResult + '\'' +
                 ", submit='" + submit + '\'' +
-                ", isRunning='" + isRunning + '\'' +
                 '}';
     }
 }

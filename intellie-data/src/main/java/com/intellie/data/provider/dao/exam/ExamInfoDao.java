@@ -1,4 +1,4 @@
-package com.intellie.data.provider.dao.paper;
+package com.intellie.data.provider.dao.exam;
 
 import com.intellie.data.entity.paper.Paper;
 import com.intellie.data.entity.paper.PaperComplete;
@@ -15,8 +15,7 @@ import java.util.List;
  * @describe:
  */
 @Mapper
-public interface PaperInfoDao {
-    Paper queryPaperInfo(Paper paper);
-
-    List<PaperComplete> queryPaperCompleteList(PaperQueryCondition condition);
+public interface ExamInfoDao {
+    //查询一张试卷题目列表的详细信息
+    List<Question> queryPaperQuestion(Paper paper);
 }

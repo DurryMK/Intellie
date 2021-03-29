@@ -1,4 +1,4 @@
-package com.intellie.referenceapi;
+package com.intellie.remoteApi;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -36,7 +36,6 @@ public class QuestionModifyController extends BaseController {
             User loginStatus = commonService.getLoginStatus(request);
             String userId = loginStatus.getId();
             String questionId = request.getParameter("questionId");
-
             QuestionQueryCondition condition = new QuestionQueryCondition();
             condition.setDel(BaseConst.NO_DEL);
             condition.setOwner(userId);
