@@ -47,6 +47,12 @@ public class ExamServiceImpl implements ExamService {
             return em.fail("试卷不存在");
         paper.setId(complete.getId());
         List<Question> questions = examInfoDao.queryPaperQuestion(paper);
+        //计算总分
+        double total = 0;
+        for(Question question : questions){
+            total+=question.getScore();
+        }
+        complete.setTotalScore(total);
         return em.success(new String[]{"paper", "list"}, complete, questions);
     }
 }

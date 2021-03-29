@@ -40,7 +40,7 @@ public class PaperComplete {
     private String runningStatus;//是否正在进行中
     private String runningStatusStr;//
     private int questionNum;//题数
-    private long totalScore;//总分
+    private double totalScore;//总分
     private String examLink;//考试链接
 
     public String getExamLink() {
@@ -51,11 +51,11 @@ public class PaperComplete {
         this.examLink = examLink;
     }
 
-    public long getTotalScore() {
+    public double getTotalScore() {
         return totalScore;
     }
 
-    public void setTotalScore(long totalScore) {
+    public void setTotalScore(double totalScore) {
         this.totalScore = totalScore;
     }
 

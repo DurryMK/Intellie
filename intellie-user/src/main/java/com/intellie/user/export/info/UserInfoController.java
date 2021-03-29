@@ -2,6 +2,7 @@ package com.intellie.user.export.info;
 
 import com.intellie.common.entity.system.CacheTag;
 import com.intellie.common.entity.system.Emap;
+import com.intellie.common.utils.StringUtil;
 import com.intellie.user.entity.user.UserPaperType;
 import com.intellie.user.export.base.AbstractController;
 import com.intellie.common.entity.user.User;
@@ -63,5 +64,27 @@ public class UserInfoController extends AbstractController {
             return em.fail("系统异常");
         }
     }
+
+    /**
+     *获取考生的信息
+     * */
+    @GetMapping("getExamUserInfo")
+    public Map getExamUserInfo(HttpServletRequest request, Emap em) {
+        String mobile = request.getParameter("mobile");
+        if(StringUtil.isNull(mobile)||mobile.length()<11)
+            return em.fail("用户不存在");
+        try {
+            User user = new User();
+            user.setMobile(mobile);
+            UserDetail userDetailInfo = userService.getUserDetailInfo(user);
+            if(!"1".equals(userDetailInfo.getrName()))
+                return em.fail("未实名");
+            return em.success(new String[]{"name","id","school"},userDetailInfo.getRealName(),userDetailInfo.getIdCard(),userDetailInfo.getSchool());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return em.fail("未找到用户");
+        }
+    }
+
 
 }

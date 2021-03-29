@@ -5,20 +5,13 @@ import com.intellie.common.utils.PBEUtil;
 import com.intellie.common.utils.StringUtil;
 import com.intellie.data.entity.base.BaseConst;
 import com.intellie.data.entity.paper.Paper;
-import com.intellie.data.entity.paper.PaperComplete;
-import com.intellie.data.entity.paper.PaperQueryCondition;
-import com.intellie.data.entity.question.Question;
-import com.intellie.data.entity.question.QuestionQueryCondition;
 import com.intellie.data.export.base.BaseController;
-import org.bouncycastle.jcajce.provider.symmetric.util.PBE;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -67,19 +60,4 @@ public class ExamController extends BaseController {
         return em.fail("拉取试卷信息错误");
     }
 
-    public static void main(String[] args) throws Exception {
-        String s = "fK7Pc8";
-        String a = "XkOEbyz2l64ApB 7h5qAHQdNi54UMh U7eLeqaU12p3VmzLy1gQ85A==";
-//        String s1 = "450F7275-21B8-48E9-89A3-A114283D11BD";
-//        String key = PBEUtil.genSecretKey(6);
-//        System.out.println(key);
-//        String encrypt = key+PBEUtil.encrypt(s1, key);
-//        System.out.println(encrypt);
-//        String s = encrypt.substring(0, 6);
-//        String a = encrypt.substring(6);
-//        System.out.println(s);
-//        System.out.println(a);
-        String code = PBEUtil.decrypt(a, s);
-        System.out.println(code);
-    }
 }

@@ -3,6 +3,7 @@ package com.intellie.user.provider.impl;
 import com.intellie.common.entity.system.SIGN;
 import com.intellie.common.entity.user.User;
 import com.intellie.common.entity.user.UserDetail;
+import com.intellie.common.utils.StringUtil;
 import com.intellie.user.entity.user.UserPaperType;
 import com.intellie.user.provider.mapper.UserDao;
 import com.intellie.user.provider.service.UserService;
@@ -49,6 +50,24 @@ public class UserServiceImpl implements UserService {
         //计算当前年龄
         userDetail.setBirthday(AgeUtil.get(userDetail.getBirthday()) + "");
         userDetail.setImg(imgAddress + SIGN.URLSplit + avatar + userDetail.getImg());
+        //隐藏真实姓名
+        String realName = userDetail.getRealName();
+        if (StringUtil.isNotNull(realName)) {
+            if (realName.length() == 2) {
+                realName = "*" + realName.substring(1);
+            } else if (realName.length() == 3) {
+                realName = realName.substring(0, 1) + "*" + realName.substring(2);
+            } else {
+                realName = realName.substring(0, 1) + "***" + realName.substring(realName.length() - 1);
+            }
+            userDetail.setRealName(realName);
+        }
+        //隐藏身份证号
+        String idCard = userDetail.getIdCard();
+        if (StringUtil.isNotNull(idCard)) {
+            idCard = idCard.replaceAll("(\\d{4})\\d{10}(\\d{4})", "$1****$2");
+            userDetail.setIdCard(idCard);
+        }
         return userDetail;
     }
 
@@ -64,7 +83,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void addUserPaperType(String id, String newType) {
-        userDao.insertUserPaperType(id,newType);
+        userDao.insertUserPaperType(id, newType);
     }
 
 }

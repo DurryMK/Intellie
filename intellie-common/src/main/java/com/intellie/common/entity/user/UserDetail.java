@@ -20,6 +20,24 @@ public class UserDetail extends BaseEntity {
     private String img;//头像链接
     private String RegTime;//注册时间
     private String major;//专业
+    private String idCard;//身份证
+    private String realName;//真实姓名
+
+    public String getRealName() {
+        return realName;
+    }
+
+    public void setRealName(String realName) {
+        this.realName = realName;
+    }
+
+    public String getIdCard() {
+        return idCard;
+    }
+
+    public void setIdCard(String idCard) {
+        this.idCard = idCard;
+    }
 
     public String getMobile() {
         return mobile;
